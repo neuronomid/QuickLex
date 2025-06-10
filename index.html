@@ -4,19 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickLex</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0078d4">
+  <!-- Farsi-friendly font -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <!-- HEADER: Logo + App Name -->
-    <div class="header">
-      <img src="logo.png" alt="QuickLex Logo" class="logo">
-      <span class="app-name">QuickLex</span>
-    </div>
-    <h1>Type any word in 🇬🇧 English or 🇮🇷 Farsi</h3>
+    <img src="logo.png" alt="QuickLex Logo" class="logo">
+    <h1>Type any word in 🇬🇧 English or 🇮🇷 Farsi</h1>
     <input id="wordInput" type="text" placeholder="Enter word..." autocomplete="off">
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
@@ -26,20 +21,26 @@
   </div>
 
   <script>
+    // Configuration
     const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
-    const input = document.getElementById('wordInput');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const doneBtn = document.getElementById('doneBtn');
+    // Element references
+    const input        = document.getElementById('wordInput');
+    const cancelBtn    = document.getElementById('cancelBtn');
+    const doneBtn      = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
 
+    // Cancel handler
     cancelBtn.onclick = () => {
+      console.log('Cancel clicked');
       input.value = '';
       responseArea.textContent = '';
-      input.focus();
     };
 
+    // Core fetch function
     async function doFetch() {
+      console.log('doFetch called');
       const word = input.value.trim();
+      console.log('Word:', word);
       if (!word) return;
       responseArea.textContent = 'Loading...';
       try {
@@ -48,25 +49,39 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word })
         });
+        console.log('Fetch status:', res.status);
         const text = await res.text();
+        console.log('Received text:', text);
         responseArea.textContent = text;
+        // Clear and focus input
         input.value = '';
         input.focus();
       } catch (err) {
+        console.error('Fetch error:', err);
         responseArea.textContent = 'Error: ' + err.message;
       }
     }
 
-    doneBtn.onclick = doFetch;
+    // Button handler
+    doneBtn.onclick = () => {
+      console.log('Done clicked');
+      doFetch();
+    };
+
+    // Enter key handler
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
+        console.log('Enter pressed');
         doFetch();
       }
     });
 
+    // Register service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('SW registered'))
+        .catch(err => console.warn('SW error', err));
     }
   </script>
 </body>
