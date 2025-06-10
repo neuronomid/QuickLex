@@ -2,10 +2,15 @@
   "name": "QuickLex",
   "short_name": "QuickLex",
   "start_url": ".",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0078d4",
   "icons": [
-    { "src": "logo.png", "sizes": "192x192", "type": "image/png" }
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
   ]
 }
