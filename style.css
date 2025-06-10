@@ -12,7 +12,7 @@ body {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 320px;
+  width: 360px;
   text-align: center;
 }
 .logo {
@@ -26,6 +26,7 @@ input {
   margin: 12px 0;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 .buttons {
   display: flex;
@@ -38,13 +39,15 @@ button {
   cursor: pointer;
 }
 #cancelBtn { background: #e0e0e0; }
-#doneBtn { background: #0078d4; color: white; }
+#doneBtn { background: #007AFF; color: white; }
 pre {
+  margin-top: 12px;
   text-align: left;
   background: #f0f0f0;
-  padding: 8px;
-  height: 100px;
-  overflow: auto;
+  padding: 12px;
+  max-height: 240px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
   border-radius: 6px;
-  margin-top: 12px;
 }
