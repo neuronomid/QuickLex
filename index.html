@@ -11,7 +11,7 @@
   <div class="container">
     <img src="logo.png" alt="QuickLex Logo" class="logo">
     <h1>Type any word in 🇬🇧 English or 🇮🇷 Farsi</h1>
-    <input id="wordInput" type="text" placeholder="Enter word...">
+    <input id="wordInput" type="text" placeholder="Enter word..." autocomplete="off">
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
@@ -20,55 +20,50 @@
   </div>
 
   <script>
-    // URL to your n8n webhook (Test or Production)
     const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook-test/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
-
-    // Grab UI elements
-    const input       = document.getElementById('wordInput');
-    const cancelBtn   = document.getElementById('cancelBtn');
-    const doneBtn     = document.getElementById('doneBtn');
+    const input        = document.getElementById('wordInput');
+    const cancelBtn    = document.getElementById('cancelBtn');
+    const doneBtn      = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
 
-    // Clear input/output on Cancel
-    cancelBtn.onclick = () => {
-      console.log('Cancel clicked');
+    function reset() {
       input.value = '';
       responseArea.textContent = '';
+    }
+
+    cancelBtn.onclick = () => {
+      reset();
     };
 
-    // Handle Done click
-    doneBtn.onclick = async () => {
-      console.log('Done clicked');
+    async function doFetch() {
       const word = input.value.trim();
-      console.log('Word entered:', word);
-      if (!word) {
-        console.warn('No word entered.');
-        return;
-      }
+      if (!word) return;
       responseArea.textContent = 'Loading...';
-
       try {
-        console.log('Fetching from webhook:', webhookUrl);
         const res = await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word })
         });
-        console.log('Fetch complete, status:', res.status);
         const text = await res.text();
-        console.log('Response text:', text);
         responseArea.textContent = text;
       } catch (err) {
-        console.error('Fetch error:', err);
         responseArea.textContent = 'Error: ' + err.message;
       }
-    };
+    }
 
-    // Register service worker for PWA install
+    doneBtn.onclick = () => doFetch();
+
+    // Trigger Done on Enter key in input
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doFetch();
+      }
+    });
+
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('Service Worker registered'))
-        .catch(err => console.warn('SW registration failed:', err));
+      navigator.serviceWorker.register('sw.js');
     }
   </script>
 </body>
