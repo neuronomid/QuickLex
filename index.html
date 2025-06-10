@@ -5,26 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickLex</title>
 
-  <!-- PWA: web app manifest -->
-  <link rel="manifest" href="manifest.json">
-  <!-- iOS meta tags -->
+  <!-- PWA: manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- iOS integration -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="QuickLex">
-  <link rel="apple-touch-icon" href="logo-symbol.png">
+  <link rel="apple-touch-icon" href="/logo-symbol.png">
 
-  <!-- Theme color for task switcher -->
+  <!-- Theme color -->
   <meta name="theme-color" content="#40E0D0">
 
   <!-- Farsi font -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <img src="logo-symbol.png" alt="QuickLex Logo" class="logo">
+      <img src="/logo-symbol.png" alt="QuickLex Logo" class="logo">
       <span class="app-name">QuickLex</span>
     </div>
     <p class="instruction">Type any word in 🇬🇧 English or 🇮🇷 Farsi</p>
@@ -76,8 +75,9 @@
       }
     });
 
+    // register service worker at root
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('/sw.js');
     }
   </script>
 </body>
