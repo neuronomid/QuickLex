@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickLex</title>
-  <link rel="manifest" href="manifest.json">
+  <!-- Farsi-friendly font -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,23 +21,26 @@
   </div>
 
   <script>
+    // Configuration
     const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook-test/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
+    // Element references
     const input        = document.getElementById('wordInput');
     const cancelBtn    = document.getElementById('cancelBtn');
     const doneBtn      = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
 
-    function reset() {
+    // Cancel handler
+    cancelBtn.onclick = () => {
+      console.log('Cancel clicked');
       input.value = '';
       responseArea.textContent = '';
-    }
-
-    cancelBtn.onclick = () => {
-      reset();
     };
 
+    // Core fetch function
     async function doFetch() {
+      console.log('doFetch called');
       const word = input.value.trim();
+      console.log('Word:', word);
       if (!word) return;
       responseArea.textContent = 'Loading...';
       try {
@@ -45,36 +49,39 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word })
         });
+        console.log('Fetch status:', res.status);
         const text = await res.text();
+        console.log('Received text:', text);
         responseArea.textContent = text;
-        // Clear the input and focus for next entry
+        // Clear and focus input
         input.value = '';
         input.focus();
       } catch (err) {
-        responseArea.textContent = 'Error: ' + err.message;
-      }
-    },
-          body: JSON.stringify({ word })
-        });
-        const text = await res.text();
-        responseArea.textContent = text;
-      } catch (err) {
+        console.error('Fetch error:', err);
         responseArea.textContent = 'Error: ' + err.message;
       }
     }
 
-    doneBtn.onclick = () => doFetch();
+    // Button handler
+    doneBtn.onclick = () => {
+      console.log('Done clicked');
+      doFetch();
+    };
 
-    // Trigger Done on Enter key in input
-    input.addEventListener('keydown', (e) => {
+    // Enter key handler
+    input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
+        console.log('Enter pressed');
         doFetch();
       }
     });
 
+    // Register service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('SW registered'))
+        .catch(err => console.warn('SW error', err));
     }
   </script>
 </body>
