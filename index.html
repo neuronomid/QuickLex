@@ -4,29 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickLex</title>
-  <!-- Farsi-friendly font -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" alt="QuickLex Logo" class="logo">
+    <div class="header">
+      <img src="logo.png" alt="QuickLex Logo" class="logo">
+      <span class="app-name">QuickLex</span>
+    </div>
+    
     <h1>Type any word in 🇬🇧 English or 🇮🇷 Farsi</h1>
+    
     <input id="wordInput" type="text" placeholder="Enter word..." autocomplete="off">
+    
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
     </div>
+    
     <pre id="responseArea"></pre>
   </div>
 
   <script>
     // Configuration
     const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
+
     // Element references
-    const input        = document.getElementById('wordInput');
-    const cancelBtn    = document.getElementById('cancelBtn');
-    const doneBtn      = document.getElementById('doneBtn');
+    const input = document.getElementById('wordInput');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const doneBtn = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
 
     // Cancel handler
