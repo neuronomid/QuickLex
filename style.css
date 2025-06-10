@@ -37,7 +37,10 @@ body {
   width: 64px;
   height: 64px;
   border-radius: 12px;
+  display: block;         /* Ensures there are no unwanted inline gaps */
+  object-fit: cover;      /* Crops the image to fill the container without extra margins */
 }
+
 
 .app-name {
   font-size: 24px;
