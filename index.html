@@ -4,12 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickLex</title>
-  <!-- 1) Import a nice Farsi/Latin font (Vazirmatn) -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <!-- 2) Your existing stylesheet -->
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,9 +26,13 @@
     const doneBtn      = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
 
-    cancelBtn.onclick = () => {
+    function reset() {
       input.value = '';
       responseArea.textContent = '';
+    }
+
+    cancelBtn.onclick = () => {
+      reset();
     };
 
     async function doFetch() {
@@ -48,6 +47,17 @@
         });
         const text = await res.text();
         responseArea.textContent = text;
+        // Clear the input and focus for next entry
+        input.value = '';
+        input.focus();
+      } catch (err) {
+        responseArea.textContent = 'Error: ' + err.message;
+      }
+    },
+          body: JSON.stringify({ word })
+        });
+        const text = await res.text();
+        responseArea.textContent = text;
       } catch (err) {
         responseArea.textContent = 'Error: ' + err.message;
       }
@@ -55,15 +65,14 @@
 
     doneBtn.onclick = () => doFetch();
 
-    // Allow Enter key
-    input.addEventListener('keydown', e => {
+    // Trigger Done on Enter key in input
+    input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
         doFetch();
       }
     });
 
-    // PWA service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
