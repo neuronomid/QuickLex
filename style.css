@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap');
 
-/* Root font */
 body {
   margin: 0;
+  padding: 0;
   background: transparent;
   font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont,
                'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -13,7 +13,6 @@ body {
   font-family: inherit;
 }
 
-/* Container */
 .container {
   display: flex;
   flex-direction: column;
@@ -23,12 +22,10 @@ body {
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   width: 370px;
-  height: 680px;
   margin: 20px auto;
   text-align: center;
 }
 
-/* Header (logo + app name) */
 .header {
   display: flex;
   align-items: center;
@@ -36,21 +33,18 @@ body {
   margin-bottom: 8px;
 }
 
-/* Logo size */
 .logo {
   width: 64px;
   height: 64px;
   border-radius: 12px;
 }
 
-/* App name bold */
 .app-name {
   font-size: 24px;
   font-weight: 600;
   color: #222;
 }
 
-/* Instruction text (smaller, not bold) */
 .instruction {
   font-size: 16px;
   font-weight: 400;
@@ -58,7 +52,6 @@ body {
   margin: 12px 0;
 }
 
-/* Input styling */
 input {
   width: 100%;
   padding: 12px;
@@ -68,7 +61,6 @@ input {
   font-size: 16px;
 }
 
-/* Buttons layout */
 .buttons {
   display: flex;
   gap: 12px;
@@ -76,7 +68,6 @@ input {
   margin-bottom: 16px;
 }
 
-/* Button styles */
 button {
   flex: 1;
   padding: 12px;
@@ -96,7 +87,6 @@ button {
   color: #fff;
 }
 
-/* Output area */
 pre {
   flex: 1;
   width: 100%;
@@ -108,4 +98,6 @@ pre {
   line-height: 1.5;
   overflow-y: auto;
   white-space: pre-wrap;
+  /* Left-align content */
+  text-align: left;
 }
