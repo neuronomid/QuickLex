@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickLex</title>
-  <link rel="manifest" href="manifest.json">
+  <!-- 1) Import a nice Farsi/Latin font (Vazirmatn) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <!-- 2) Your existing stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,13 +31,9 @@
     const doneBtn      = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
 
-    function reset() {
+    cancelBtn.onclick = () => {
       input.value = '';
       responseArea.textContent = '';
-    }
-
-    cancelBtn.onclick = () => {
-      reset();
     };
 
     async function doFetch() {
@@ -54,14 +55,15 @@
 
     doneBtn.onclick = () => doFetch();
 
-    // Trigger Done on Enter key in input
-    input.addEventListener('keydown', (e) => {
+    // Allow Enter key
+    input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
         doFetch();
       }
     });
 
+    // PWA service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
