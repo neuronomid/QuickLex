@@ -5,33 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickLex</title>
 
-  <!-- PWA: manifest -->
-  <link rel="manifest" href="/manifest.json">
-  <!-- iOS integration -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="QuickLex">
-  <link rel="apple-touch-icon" href="/logo-symbol.png">
-
-  <!-- Theme color -->
-  <meta name="theme-color" content="#40E0D0">
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0078d4">
 
   <!-- Farsi font -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
+    <!-- Header: logo + app name -->
     <div class="header">
-      <img src="/logo-symbol.png" alt="QuickLex Logo" class="logo">
+      <img src="logo.png" alt="QuickLex Logo" class="logo">
       <span class="app-name">QuickLex</span>
     </div>
+
+    <!-- Instruction text -->
     <p class="instruction">Type any word in 🇬🇧 English or 🇮🇷 Farsi</p>
+
+    <!-- Input & buttons -->
     <input id="wordInput" type="text" placeholder="Enter word..." autocomplete="off">
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
     </div>
+
+    <!-- Output area -->
     <pre id="responseArea"></pre>
   </div>
 
@@ -75,9 +75,8 @@
       }
     });
 
-    // register service worker at root
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
+      navigator.serviceWorker.register('sw.js');
     }
   </script>
 </body>
