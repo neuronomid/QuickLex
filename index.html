@@ -20,11 +20,14 @@
   </div>
 
   <script>
-    const webhookUrl = https://celebrated-beauty-production.up.railway.app/webhook-test/8251cd3e-edb7-49c6-bc6b-8bf85cccda89;
+    // NOTE: webhookUrl must be a string
+    const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook-test/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
+
     document.getElementById('cancelBtn').onclick = () => {
       document.getElementById('wordInput').value = '';
       document.getElementById('responseArea').textContent = '';
     };
+
     document.getElementById('doneBtn').onclick = async () => {
       const word = document.getElementById('wordInput').value.trim();
       if (!word) return;
@@ -35,8 +38,10 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word })
         });
-        const data = await res.json();
-        document.getElementById('responseArea').textContent = JSON.stringify(data, null, 2);
+        
+        // Parse response as plain text instead of JSON
+        const text = await res.text();
+        document.getElementById('responseArea').textContent = text;
       } catch (e) {
         document.getElementById('responseArea').textContent = 'Error: ' + e.message;
       }
@@ -49,5 +54,4 @@
   </script>
 </body>
 </html>
-
 
