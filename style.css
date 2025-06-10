@@ -33,12 +33,13 @@ body {
 }
 
 /* --- MODIFIED SECTION --- */
+/* This CSS rule styles the <img> tag */
 .logo {
     width: 64px;
     height: 64px;
     border-radius: 12px;
-    background-color: #40E0D0; /* Your turquoise/green color */
-    padding: 12px; /* Adjust padding to make the symbol look good */
+    background-color: #40E0D0; /* This creates the turquoise background */
+    padding: 12px;             /* This creates the margin around the symbol */
 }
 /* --- END MODIFIED SECTION --- */
 
