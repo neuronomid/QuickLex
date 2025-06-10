@@ -20,38 +20,56 @@
   </div>
 
   <script>
-    // NOTE: webhookUrl must be a string
+    // URL to your n8n webhook (Test or Production)
     const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook-test/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
 
-    document.getElementById('cancelBtn').onclick = () => {
-      document.getElementById('wordInput').value = '';
-      document.getElementById('responseArea').textContent = '';
+    // Grab UI elements
+    const input       = document.getElementById('wordInput');
+    const cancelBtn   = document.getElementById('cancelBtn');
+    const doneBtn     = document.getElementById('doneBtn');
+    const responseArea = document.getElementById('responseArea');
+
+    // Clear input/output on Cancel
+    cancelBtn.onclick = () => {
+      console.log('Cancel clicked');
+      input.value = '';
+      responseArea.textContent = '';
     };
 
-    document.getElementById('doneBtn').onclick = async () => {
-      const word = document.getElementById('wordInput').value.trim();
-      if (!word) return;
-      document.getElementById('responseArea').textContent = 'Loading...';
+    // Handle Done click
+    doneBtn.onclick = async () => {
+      console.log('Done clicked');
+      const word = input.value.trim();
+      console.log('Word entered:', word);
+      if (!word) {
+        console.warn('No word entered.');
+        return;
+      }
+      responseArea.textContent = 'Loading...';
+
       try {
+        console.log('Fetching from webhook:', webhookUrl);
         const res = await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word })
         });
-        
-        // Parse response as plain text instead of JSON
+        console.log('Fetch complete, status:', res.status);
         const text = await res.text();
-        document.getElementById('responseArea').textContent = text;
-      } catch (e) {
-        document.getElementById('responseArea').textContent = 'Error: ' + e.message;
+        console.log('Response text:', text);
+        responseArea.textContent = text;
+      } catch (err) {
+        console.error('Fetch error:', err);
+        responseArea.textContent = 'Error: ' + err.message;
       }
     };
 
-    // Register service worker for PWA installability
+    // Register service worker for PWA install
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.warn('SW registration failed:', err));
     }
   </script>
 </body>
 </html>
-
