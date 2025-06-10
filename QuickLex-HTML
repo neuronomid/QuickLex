@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QuickLex Dictionary</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 10px;
+    }
+    h1 {
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      font-size: 1.1em;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    pre {
+      white-space: pre-wrap;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>QuickLex Dictionary</h1>
+  <input type="text" id="wordInput" placeholder="Type a word..." />
+  <button id="searchBtn">Search</button>
+
+  <pre id="resultArea">Enter a word and press Search</pre>
+
+  <script>
+    const searchBtn = document.getElementById('searchBtn');
+    const wordInput = document.getElementById('wordInput');
+    const resultArea = document.getElementById('resultArea');
+
+    searchBtn.addEventListener('click', () => {
+      const word = wordInput.value.trim();
+      if (!word) {
+        resultArea.textContent = "Please enter a word.";
+        return;
+      }
+      resultArea.textContent = "Loading...";
+      fetch('YOUR_API_URL_HERE', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ word: word })
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Customize this based on your API response structure
+        if(data.output) {
+          resultArea.textContent = data.output;
+        } else {
+          resultArea.textContent = "No definition found.";
+        }
+      })
+      .catch(err => {
+        resultArea.textContent = "Error: " + err.message;
+      });
+    });
+
+    // Optional: Search on Enter key press
+    wordInput.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') {
+        searchBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
