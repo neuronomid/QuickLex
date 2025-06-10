@@ -1,86 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuickLex</title>
-
-  <!-- PWA manifest -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0078d4">
-
-  <!-- Farsi font -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Added: Desktop icon for pure green logo -->
-  <link rel="icon" type="image/png" sizes="64x64" href="pure-green-logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickLex</title>
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Icon for iOS -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="theme-color" content="#40E0D0"> <!-- Changed to match logo -->
+    <!-- Farsi font -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Header: logo + app name -->
-    <div class="header">
-      <img src="logo.png" alt="QuickLex Logo" class="logo">
-      <span class="app-name">QuickLex</span>
+    <div class="container">
+        <!-- Header: logo + app name -->
+        <div class="header">
+            <!-- Use the new logo with transparent background -->
+            <img src="logo-symbol.png" alt="QuickLex Logo" class="logo">
+            <span class="app-name">QuickLex</span>
+        </div>
+        <!-- Instruction text -->
+        <p class="instruction">Type any word in 🇬🇧 English or 🇮🇷 Farsi</p>
+        <!-- Input & buttons -->
+        <input id="wordInput" type="text" placeholder="Enter word..." autocomplete="off">
+        <div class="buttons">
+            <button id="cancelBtn">Cancel</button>
+            <button id="doneBtn">Done</button>
+        </div>
+        <!-- Output area -->
+        <pre id="responseArea"></pre>
     </div>
+    <script>
+        const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
+        const input = document.getElementById('wordInput');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const doneBtn = document.getElementById('doneBtn');
+        const responseArea = document.getElementById('responseArea');
 
-    <!-- Instruction text -->
-    <p class="instruction">Type any word in 🇬🇧 English or 🇮🇷 Farsi</p>
+        cancelBtn.onclick = () => {
+            input.value = '';
+            responseArea.textContent = '';
+            input.focus();
+        };
 
-    <!-- Input & buttons -->
-    <input id="wordInput" type="text" placeholder="Enter word..." autocomplete="off">
-    <div class="buttons">
-      <button id="cancelBtn">Cancel</button>
-      <button id="doneBtn">Done</button>
-    </div>
+        async function doFetch() {
+            const word = input.value.trim();
+            if (!word) return;
+            responseArea.textContent = 'Loading...';
+            try {
+                const res = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ word })
+                });
+                const text = await res.text();
+                responseArea.textContent = text;
+                input.value = '';
+                input.focus();
+            } catch (err) {
+                responseArea.textContent = 'Error: ' + err.message;
+            }
+        }
 
-    <!-- Output area -->
-    <pre id="responseArea"></pre>
-  </div>
-
-  <script>
-    const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
-    const input = document.getElementById('wordInput');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const doneBtn = document.getElementById('doneBtn');
-    const responseArea = document.getElementById('responseArea');
-
-    cancelBtn.onclick = () => {
-      input.value = '';
-      responseArea.textContent = '';
-      input.focus();
-    };
-
-    async function doFetch() {
-      const word = input.value.trim();
-      if (!word) return;
-      responseArea.textContent = 'Loading...';
-      try {
-        const res = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ word })
+        doneBtn.onclick = doFetch;
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                doFetch();
+            }
         });
-        const text = await res.text();
-        responseArea.textContent = text;
-        input.value = '';
-        input.focus();
-      } catch (err) {
-        responseArea.textContent = 'Error: ' + err.message;
-      }
-    }
 
-    doneBtn.onclick = doFetch;
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        doFetch();
-      }
-    });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
-  </script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
 </body>
 </html>
