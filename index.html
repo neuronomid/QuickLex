@@ -1,87 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>QuickLex Dictionary</title>
-  <link rel="manifest" href="manifest.json" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #f0f0f0;
-      border-radius: 10px;
-    }
-    h1 {
-      text-align: center;
-    }
-    input[type="text"] {
-      width: 80%;
-      padding: 10px;
-      font-size: 1.1em;
-    }
-    button {
-      padding: 10px 15px;
-      font-size: 1.1em;
-      cursor: pointer;
-    }
-    pre {
-      white-space: pre-wrap;
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin-top: 20px;
-      border-radius: 8px;
-      font-size: 1em;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickLex</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>QuickLex Dictionary</h1>
-  <input type="text" id="wordInput" placeholder="Type a word..." />
-  <button id="searchBtn">Search</button>
-
-  <pre id="resultArea">Enter a word and press Search</pre>
+  <div class="container">
+    <img src="logo.png" alt="QuickLex Logo" class="logo">
+    <h1>Type any word in 🇬🇧 English or 🇮🇷 Farsi</h1>
+    <input id="wordInput" type="text" placeholder="Enter word...">
+    <div class="buttons">
+      <button id="cancelBtn">Cancel</button>
+      <button id="doneBtn">Done</button>
+    </div>
+    <pre id="responseArea"></pre>
+  </div>
 
   <script>
-    const searchBtn = document.getElementById('searchBtn');
-    const wordInput = document.getElementById('wordInput');
-    const resultArea = document.getElementById('resultArea');
-
-    searchBtn.addEventListener('click', () => {
-      const word = wordInput.value.trim();
-      if (!word) {
-        resultArea.textContent = "Please enter a word.";
-        return;
+    const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
+    document.getElementById('cancelBtn').onclick = () => {
+      document.getElementById('wordInput').value = '';
+      document.getElementById('responseArea').textContent = '';
+    };
+    document.getElementById('doneBtn').onclick = async () => {
+      const word = document.getElementById('wordInput').value.trim();
+      if (!word) return;
+      document.getElementById('responseArea').textContent = 'Loading...';
+      try {
+        const res = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ word })
+        });
+        const data = await res.json();
+        document.getElementById('responseArea').textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        document.getElementById('responseArea').textContent = 'Error: ' + e.message;
       }
-      resultArea.textContent = "Loading...";
-      fetch('YOUR_API_URL_HERE', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ word: word })
-      })
-      .then(res => res.json())
-      .then(data => {
-        // Customize this based on your API response structure
-        if(data.output) {
-          resultArea.textContent = data.output;
-        } else {
-          resultArea.textContent = "No definition found.";
-        }
-      })
-      .catch(err => {
-        resultArea.textContent = "Error: " + err.message;
-      });
-    });
+    };
 
-    // Optional: Search on Enter key press
-    wordInput.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter') {
-        searchBtn.click();
-      }
-    });
+    // Register service worker for PWA installability
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
   </script>
 </body>
 </html>
+
+
