@@ -11,7 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 50vh;
 }
 
 *, *::before, *::after {
@@ -30,8 +30,8 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 
   /* fixed card width */
-  width: 180px;
-  height: 240px;
+  width: 370px;
+  height: auto;
 
   /* drop the old auto-margin now that body flex is handling centering */
   margin: 0;
