@@ -56,9 +56,7 @@
 
     cancelBtn.onclick = () => {
       input.value = '';
-      responseArea.textContent = '';
-      responseArea.removeAttribute('dir');
-      responseArea.removeAttribute('style');
+      responseArea.innerHTML = '';
       input.focus();
     };
 
@@ -68,10 +66,17 @@
     }
 
     function updateResponse(text) {
-      const direction = detectDirection(text);
-      responseArea.textContent = text;
-      responseArea.style.direction = direction;
-      responseArea.style.textAlign = direction === 'rtl' ? 'right' : 'left';
+      responseArea.innerHTML = ''; // Clear previous content
+      const lines = text.split('\n');
+
+      lines.forEach(line => {
+        const direction = detectDirection(line);
+        const div = document.createElement('div');
+        div.textContent = line;
+        div.style.direction = direction;
+        div.style.textAlign = direction === 'rtl' ? 'right' : 'left';
+        responseArea.appendChild(div);
+      });
     }
 
     async function doFetch() {
@@ -80,7 +85,8 @@
 
       const selectedUrl = isQuick ? quickUrl : proUrl;
 
-      responseArea.textContent = 'Loading...';
+      responseArea.innerHTML = '<div style="text-align:center;">Loading...</div>';
+
       try {
         const res = await fetch(selectedUrl, {
           method: 'POST',
@@ -92,9 +98,7 @@
         input.value = '';
         input.focus();
       } catch (err) {
-        responseArea.textContent = 'Error: ' + err.message;
-        responseArea.style.direction = 'ltr';
-        responseArea.style.textAlign = 'left';
+        responseArea.innerHTML = `<div style="direction:ltr;text-align:left;color:red;">Error: ${err.message}</div>`;
       }
     }
 
