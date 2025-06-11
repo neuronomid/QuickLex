@@ -2,41 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QuickLex</title>
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#0078d4"/>
-  <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet"/>
+  <meta name="theme-color" content="#0078d4" />
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <!-- Header: logo + app name -->
+    <!-- Header: logo + app name + toggle in one row -->
     <div class="header">
-      <img src="logo.png" alt="QuickLex Logo" class="logo" />
-      <span class="app-name">QuickLex</span>
+      <div class="logo-name">
+        <img src="logo.png" alt="QuickLex Logo" class="logo" />
+        <span class="app-name">QuickLex</span>
+      </div>
+      <div class="toggle-wrapper">
+        <span class="label bold">Quick</span>
+        <label class="switch">
+          <input type="checkbox" id="modeToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="label bold">Pro</span>
+      </div>
     </div>
 
-    <!-- Toggle buttons -->
-    <div class="toggle-row">
-      <span class="toggle-label bold">Quick</span>
-      <label class="switch">
-        <input type="checkbox" id="modeToggle" />
-        <span class="slider"></span>
-      </label>
-      <span class="toggle-label bold">Pro</span>
-    </div>
-
-    <!-- Input box -->
+    <!-- Input & buttons -->
     <input id="wordInput" type="text" placeholder="Enter a word in English/Farsi..." autocomplete="off" />
-
-    <!-- Buttons -->
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
     </div>
 
-    <!-- Response area -->
+    <!-- Output area -->
     <pre id="responseArea"></pre>
   </div>
 
@@ -66,7 +64,7 @@
       const lines = text.split('\n');
       const sectionMarkers = ['📚', '🏠', '💼', '📖', '✏️', '⚪️', '☑️'];
 
-      lines.forEach(line => {
+      lines.forEach((line, index) => {
         const trimmed = line.trim();
 
         if (sectionMarkers.some(marker => trimmed.startsWith(marker))) {
