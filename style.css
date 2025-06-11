@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Vazir', sans-serif;
   background-color: #f2f2f2;
 }
 
@@ -114,7 +114,7 @@ input[type="text"] {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-  font-family: inherit;
+  font-family: 'Vazir', sans-serif;
 }
 
 .buttons {
@@ -131,7 +131,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  font-family: inherit;
+  font-family: 'Vazir', sans-serif;
 }
 
 #cancelBtn {
@@ -156,5 +156,5 @@ pre {
   overflow-y: auto;
   white-space: pre-wrap;
   text-align: left;
-  font-family: inherit;
+  font-family: 'Vazir', sans-serif;
 }
