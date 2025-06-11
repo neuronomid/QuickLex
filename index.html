@@ -15,10 +15,12 @@
 </head>
 <body>
   <div class="container">
-    <!-- Header: logo + app name + toggle -->
+    <!-- Header: logo + fixed app name + toggle -->
     <div class="header">
-      <img src="logo.png" alt="QuickLex Logo" class="logo" />
-      <span class="app-name"><span id="modeText">Quick</span>Lex</span>
+      <div class="logo-name">
+        <img src="logo.png" alt="QuickLex Logo" class="logo" />
+        <span class="app-name">QuickLex</span>
+      </div>
       <div class="toggle-wrapper">
         <span class="label">Quick</span>
         <label class="switch">
@@ -49,7 +51,6 @@
     const cancelBtn = document.getElementById('cancelBtn');
     const doneBtn = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
-    const modeText = document.getElementById('modeText');
     const toggleSwitch = document.getElementById('modeToggle');
 
     let isQuick = true;
@@ -88,8 +89,8 @@
     });
 
     toggleSwitch.addEventListener('change', () => {
-      isQuick = !toggleSwitch.checked ? true : false;
-      modeText.textContent = isQuick ? 'Quick' : 'Pro';
+      isQuick = !toggleSwitch.checked;
+      // mode toggled – but name stays the same
     });
 
     if ('serviceWorker' in navigator) {
