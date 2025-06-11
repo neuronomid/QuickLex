@@ -31,11 +31,8 @@
       </div>
     </div>
 
-    <!-- Instruction text -->
-    <p class="instruction">Type any word in 🇬🇧 English or 🇮🇷 Farsi</p>
-
     <!-- Input & buttons -->
-    <input id="wordInput" type="text" placeholder="Enter word..." autocomplete="off" />
+    <input id="wordInput" type="text" placeholder="Enter a word in English/Farsi..." autocomplete="off" />
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
@@ -90,7 +87,6 @@
 
     toggleSwitch.addEventListener('change', () => {
       isQuick = !toggleSwitch.checked;
-      // mode toggled – but name stays the same
     });
 
     if ('serviceWorker' in navigator) {
