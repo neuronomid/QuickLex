@@ -1,11 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap');
-
 body {
   margin: 0;
   padding: 0;
   background: transparent;
-  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont,
-               'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Vazir', sans-serif;
 }
 
 *, *::before, *::after {
@@ -24,7 +21,7 @@ body {
   width: 400px;
   margin: 20px auto;
   text-align: center;
-  min-height: 520px;  /* ← ارتفاع ثابت */
+  min-height: 520px;
   max-height: 520px;
 }
 
@@ -160,5 +157,5 @@ pre {
   overflow-y: auto;
   white-space: pre-wrap;
   text-align: left;
-  height: 270px;  /* ← ثابت */
+  height: 270px;
 }
