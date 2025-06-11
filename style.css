@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Vazir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background-color: #f2f2f2;
 }
 
@@ -20,8 +20,8 @@ body {
 }
 
 .container.pro-mode {
-  width: 444px;  /* ~20% wider */
-  height: 624px; /* ~20% taller */
+  width: 444px;
+  height: 624px;
 }
 
 .header {
@@ -114,6 +114,7 @@ input[type="text"] {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
+  font-family: inherit;
 }
 
 .buttons {
@@ -130,6 +131,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
+  font-family: inherit;
 }
 
 #cancelBtn {
@@ -154,4 +156,5 @@ pre {
   overflow-y: auto;
   white-space: pre-wrap;
   text-align: left;
+  font-family: inherit;
 }
