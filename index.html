@@ -32,7 +32,7 @@
     </div>
 
     <!-- Input & buttons -->
-    <input id="wordInput" type="text" placeholder="Enter a word in English/Farsi..." autocomplete="off" />
+    <input id="wordInput" type="text" placeholder="...Enter a word in English/Farsi" autocomplete="off" />
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
@@ -43,12 +43,14 @@
   </div>
 
   <script>
-    const webhookUrl = 'https://celebrated-beauty-production.up.railway.app/webhook/8251cd3e-edb7-49c6-bc6b-8bf85cccda89';
     const input = document.getElementById('wordInput');
     const cancelBtn = document.getElementById('cancelBtn');
     const doneBtn = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
     const toggleSwitch = document.getElementById('modeToggle');
+
+    const quickUrl = 'https://celebrated-beauty-production.up.railway.app/webhook-test/5131686e-9341-4559-a4db-e8a7b11c01c5';
+    const proUrl   = 'https://celebrated-beauty-production.up.railway.app/webhook-test/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
 
     let isQuick = true;
 
@@ -61,9 +63,12 @@
     async function doFetch() {
       const word = input.value.trim();
       if (!word) return;
+
+      const selectedUrl = isQuick ? quickUrl : proUrl;
+
       responseArea.textContent = 'Loading...';
       try {
-        const res = await fetch(webhookUrl, {
+        const res = await fetch(selectedUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word })
@@ -78,6 +83,7 @@
     }
 
     doneBtn.onclick = doFetch;
+
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
