@@ -24,6 +24,8 @@ body {
   width: 400px;
   margin: 20px auto;
   text-align: center;
+  min-height: 520px;  /* ← ارتفاع ثابت */
+  max-height: 520px;
 }
 
 .header {
@@ -48,7 +50,7 @@ body {
 }
 
 .app-name {
-  font-size: 28px; /* ← بزرگ‌تر شد */
+  font-size: 28px;
   font-weight: 600;
   color: #222;
   white-space: nowrap;
@@ -62,7 +64,7 @@ body {
 
 .label {
   font-size: 14px;
-  font-weight: 600; /* ← بولد شد */
+  font-weight: 600;
   color: #333;
 }
 
@@ -158,5 +160,5 @@ pre {
   overflow-y: auto;
   white-space: pre-wrap;
   text-align: left;
-  height: 270px; /* ← ارتفاع ثابت برای ریزالت */
+  height: 270px;  /* ← ثابت */
 }
