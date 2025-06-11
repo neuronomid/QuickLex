@@ -2,67 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>QuickLex</title>
-
-  <!-- PWA manifest -->
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#0078d4" />
-
-  <!-- Font: Vazir (Farsi friendly) -->
-  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" />
+  <meta name="theme-color" content="#0078d4"/>
+  <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
+    <!-- Header: logo + app name -->
     <div class="header">
-      <div class="logo-name">
-        <img src="logo.png" alt="QuickLex Logo" class="logo" />
-        <span class="app-name">QuickLex</span>
-      </div>
-      <div class="toggle-wrapper">
-        <span class="label">Quick</span>
-        <label class="switch">
-          <input type="checkbox" id="modeToggle">
-          <span class="slider"></span>
-        </label>
-        <span class="label">Pro</span>
-      </div>
+      <img src="logo.png" alt="QuickLex Logo" class="logo" />
+      <span class="app-name">QuickLex</span>
     </div>
 
-    <!-- Input & buttons -->
-    <input id="wordInput" type="text" placeholder="...Enter a word in English/Farsi" autocomplete="off" />
+    <!-- Toggle buttons -->
+    <div class="toggle-row">
+      <span class="toggle-label bold">Quick</span>
+      <label class="switch">
+        <input type="checkbox" id="modeToggle" />
+        <span class="slider"></span>
+      </label>
+      <span class="toggle-label bold">Pro</span>
+    </div>
+
+    <!-- Input box -->
+    <input id="wordInput" type="text" placeholder="Enter a word in English/Farsi..." autocomplete="off" />
+
+    <!-- Buttons -->
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
     </div>
 
-    <!-- Output area -->
+    <!-- Response area -->
     <pre id="responseArea"></pre>
   </div>
 
   <script>
+    const quickUrl = 'https://celebrated-beauty-production.up.railway.app/webhook-test/5131686e-9341-4559-a4db-e8a7b11c01c5';
+    const proUrl = 'https://celebrated-beauty-production.up.railway.app/webhook-test/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
+
     const input = document.getElementById('wordInput');
     const cancelBtn = document.getElementById('cancelBtn');
     const doneBtn = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
-    const toggleSwitch = document.getElementById('modeToggle');
-
-    const quickUrl = 'https://celebrated-beauty-production.up.railway.app/webhook-test/5131686e-9341-4559-a4db-e8a7b11c01c5';
-    const proUrl   = 'https://celebrated-beauty-production.up.railway.app/webhook-test/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
-
-    let isQuick = true;
+    const modeToggle = document.getElementById('modeToggle');
 
     cancelBtn.onclick = () => {
       input.value = '';
-      responseArea.innerHTML = '';
+      responseArea.textContent = '';
       input.focus();
     };
 
     function detectDirection(text) {
-      const rtlPattern = /[\u0600-\u06FF]/;
-      return rtlPattern.test(text) ? 'rtl' : 'ltr';
+      const rtlChar = /[\u0600-\u06FF]/;
+      return rtlChar.test(text) ? 'rtl' : 'ltr';
     }
 
     function updateResponse(text) {
@@ -73,11 +69,12 @@
       lines.forEach(line => {
         const trimmed = line.trim();
 
-        // Insert space before major emoji markers
         if (sectionMarkers.some(marker => trimmed.startsWith(marker))) {
-          const spacer = document.createElement('div');
-          spacer.style.height = '12px';
-          responseArea.appendChild(spacer);
+          for (let i = 0; i < 2; i++) {
+            const spacer = document.createElement('div');
+            spacer.style.height = '12px';
+            responseArea.appendChild(spacer);
+          }
         }
 
         const direction = detectDirection(trimmed);
@@ -92,12 +89,11 @@
     async function doFetch() {
       const word = input.value.trim();
       if (!word) return;
-
-      const selectedUrl = isQuick ? quickUrl : proUrl;
-      responseArea.innerHTML = '<div style="text-align:center;">Loading...</div>';
+      responseArea.textContent = 'Loading...';
 
       try {
-        const res = await fetch(selectedUrl, {
+        const url = modeToggle.checked ? proUrl : quickUrl;
+        const res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word })
@@ -107,21 +103,16 @@
         input.value = '';
         input.focus();
       } catch (err) {
-        responseArea.innerHTML = `<div style="direction:ltr;text-align:left;color:red;">Error: ${err.message}</div>`;
+        responseArea.textContent = 'Error: ' + err.message;
       }
     }
 
     doneBtn.onclick = doFetch;
-
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
         doFetch();
       }
-    });
-
-    toggleSwitch.addEventListener('change', () => {
-      isQuick = !toggleSwitch.checked;
     });
 
     if ('serviceWorker' in navigator) {
