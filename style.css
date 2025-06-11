@@ -45,19 +45,63 @@ body {
   color: #222;
 }
 
-#toggleBtn {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  margin-left: 4px;
-  padding: 4px 8px;
-  border-radius: 8px;
-  transition: background 0.3s;
+/* toggle switch area */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
 }
 
-#toggleBtn:hover {
-  background: #eee;
+.label {
+  font-size: 14px;
+  color: #333;
+}
+
+/* iOS-style toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #007aff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
 }
 
 .instruction {
