@@ -38,7 +38,7 @@ body {
 .logo-name {
   display: flex;
   align-items: center;
-  gap: 8px; /* کم‌شدن فاصله بین لوگو و متن */
+  gap: 8px;
 }
 
 .logo {
@@ -48,7 +48,7 @@ body {
 }
 
 .app-name {
-  font-size: 24px;
+  font-size: 28px; /* ← بزرگ‌تر شد */
   font-weight: 600;
   color: #222;
   white-space: nowrap;
@@ -62,6 +62,7 @@ body {
 
 .label {
   font-size: 14px;
+  font-weight: 600; /* ← بولد شد */
   color: #333;
 }
 
@@ -108,13 +109,6 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(18px);
-}
-
-.instruction {
-  font-size: 16px;
-  font-weight: 400;
-  color: #555;
-  margin: 12px 0;
 }
 
 input {
@@ -164,4 +158,5 @@ pre {
   overflow-y: auto;
   white-space: pre-wrap;
   text-align: left;
+  height: 270px; /* ← ارتفاع ثابت برای ریزالت */
 }
