@@ -19,7 +19,14 @@
     <div class="header">
       <img src="logo.png" alt="QuickLex Logo" class="logo" />
       <span class="app-name"><span id="modeText">Quick</span>Lex</span>
-      <button id="toggleBtn" title="Toggle Mode">🔁</button>
+      <div class="toggle-wrapper">
+        <span class="label">Quick</span>
+        <label class="switch">
+          <input type="checkbox" id="modeToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="label">Pro</span>
+      </div>
     </div>
 
     <!-- Instruction text -->
@@ -42,8 +49,8 @@
     const cancelBtn = document.getElementById('cancelBtn');
     const doneBtn = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
-    const toggleBtn = document.getElementById('toggleBtn');
     const modeText = document.getElementById('modeText');
+    const toggleSwitch = document.getElementById('modeToggle');
 
     let isQuick = true;
 
@@ -80,10 +87,10 @@
       }
     });
 
-    toggleBtn.onclick = () => {
-      isQuick = !isQuick;
+    toggleSwitch.addEventListener('change', () => {
+      isQuick = !toggleSwitch.checked ? true : false;
       modeText.textContent = isQuick ? 'Quick' : 'Pro';
-    };
+    });
 
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
