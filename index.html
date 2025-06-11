@@ -9,8 +9,8 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0078d4" />
 
-  <!-- Farsi font -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Farsi-friendly font (Vazir) -->
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -57,8 +57,22 @@
     cancelBtn.onclick = () => {
       input.value = '';
       responseArea.textContent = '';
+      responseArea.removeAttribute('dir');
+      responseArea.removeAttribute('style');
       input.focus();
     };
+
+    function detectDirection(text) {
+      const rtlPattern = /[\u0600-\u06FF]/;
+      return rtlPattern.test(text) ? 'rtl' : 'ltr';
+    }
+
+    function updateResponse(text) {
+      const direction = detectDirection(text);
+      responseArea.textContent = text;
+      responseArea.style.direction = direction;
+      responseArea.style.textAlign = direction === 'rtl' ? 'right' : 'left';
+    }
 
     async function doFetch() {
       const word = input.value.trim();
@@ -74,11 +88,13 @@
           body: JSON.stringify({ word })
         });
         const text = await res.text();
-        responseArea.textContent = text;
+        updateResponse(text);
         input.value = '';
         input.focus();
       } catch (err) {
         responseArea.textContent = 'Error: ' + err.message;
+        responseArea.style.direction = 'ltr';
+        responseArea.style.textAlign = 'left';
       }
     }
 
