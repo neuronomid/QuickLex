@@ -9,13 +9,13 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0078d4" />
 
-  <!-- Farsi-friendly font (Vazir) -->
+  <!-- Font: Vazir (Farsi friendly) -->
   <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <!-- Header: logo + fixed app name + toggle -->
+    <!-- Header -->
     <div class="header">
       <div class="logo-name">
         <img src="logo.png" alt="QuickLex Logo" class="logo" />
@@ -66,13 +66,23 @@
     }
 
     function updateResponse(text) {
-      responseArea.innerHTML = ''; // Clear previous content
+      responseArea.innerHTML = '';
       const lines = text.split('\n');
+      const sectionMarkers = ['📚', '🏠', '💼', '📖', '✏️', '⚪️', '☑️'];
 
       lines.forEach(line => {
-        const direction = detectDirection(line);
+        const trimmed = line.trim();
+
+        // Insert space before major emoji markers
+        if (sectionMarkers.some(marker => trimmed.startsWith(marker))) {
+          const spacer = document.createElement('div');
+          spacer.style.height = '12px';
+          responseArea.appendChild(spacer);
+        }
+
+        const direction = detectDirection(trimmed);
         const div = document.createElement('div');
-        div.textContent = line;
+        div.textContent = trimmed;
         div.style.direction = direction;
         div.style.textAlign = direction === 'rtl' ? 'right' : 'left';
         responseArea.appendChild(div);
@@ -84,7 +94,6 @@
       if (!word) return;
 
       const selectedUrl = isQuick ? quickUrl : proUrl;
-
       responseArea.innerHTML = '<div style="text-align:center;">Loading...</div>';
 
       try {
