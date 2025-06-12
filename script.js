@@ -28,7 +28,7 @@ async function doFetch() {
     let text = await res.text();
 
     // Auto spacing before emoji headers
-    text = text.replace(/(^|\n)(?=.*(?:📚|🏃|💼|✏️|☑️|⚪️|📌|📎|📘|📖|🏠|✅|📄|📁|🧠|🔍|💡|📢|📤|📥|📈|📊|📅|🔬|📂|📑|📚|🔖|📝|📎|📉|📇))/g, '\n\n');
+    text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️|))/g, '\n\n');
 
     // Auto direction detection per line
     const lines = text.split('\n');
