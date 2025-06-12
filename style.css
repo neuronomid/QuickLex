@@ -1,3 +1,4 @@
+/* 📄 style.css */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500&display=swap');
 
 html {
@@ -179,10 +180,9 @@ pre span {
   font-family: 'Vazirmatn', sans-serif;
   text-align: start;
   font-weight: 450;
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
-/* ⬇️ نسخه موبایل */
 @media (max-width: 480px) {
   .container {
     width: 84vw;
@@ -219,6 +219,7 @@ pre span {
     font-size: 17px;
     line-height: 1.7;
     height: 20px;
+    font-family: 'Vazirmatn', sans-serif;
     font-weight: 450;
   }
 
@@ -241,9 +242,8 @@ pre span {
     width: 22px;
   }
 
-  /* فاصله بین خطوط emoji در موبایل کمتر بشه */
-  pre span:has(> span:only-child:first-child:matches(:first-letter:has(✏️,⚪️))) {
-    margin-top: 2px !important;
+  pre span {
+    margin-top: 4px;
   }
 
   ::-webkit-scrollbar {
