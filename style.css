@@ -170,7 +170,7 @@ pre {
   white-space: pre-wrap;
   text-align: left;
   font-family: 'Vazirmatn', sans-serif;
-  font-weight: 460;
+  font-weight: 500;
 }
 
 pre span {
@@ -178,7 +178,11 @@ pre span {
   unicode-bidi: plaintext;
   font-family: 'Vazirmatn', sans-serif;
   text-align: start;
-  font-weight: 460;
+  font-weight: 500;
+}
+
+/* ✅ کاهش فاصله span هایی که با ایموجی شروع می‌شن */
+pre span:has(> :first-child:matches(span:has-text("📚"), span:has-text("✏️"), span:has-text("⚪️"), span:has-text("✅"))) {
   margin-top: 2px;
 }
 
@@ -219,7 +223,7 @@ pre span {
     line-height: 1.7;
     height: 20px;
     font-family: 'Vazirmatn', sans-serif;
-    font-weight: 460;
+    font-weight: 500;
   }
 
   .container.pro-mode pre {
@@ -241,11 +245,12 @@ pre span {
     width: 22px;
   }
 
-  pre span {
-    margin-top: 1px;
-  }
-
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  /* ✅ کاهش فاصله ایموجی‌ها در موبایل */
+  pre span:has(> :first-child:matches(span:has-text("📚"), span:has-text("✏️"), span:has-text("⚪️"), span:has-text("✅"))) {
+    margin-top: 1px !important;
   }
 }
