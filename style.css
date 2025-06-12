@@ -181,10 +181,7 @@ pre span {
   font-weight: 450;
 }
 
-pre span:first-child {
-  margin-top: 1px;
-}
-
+/* ✅ MOBILE ONLY SETTINGS */
 @media (max-width: 480px) {
   .container {
     width: 84vw;
@@ -248,7 +245,15 @@ pre span:first-child {
     display: none;
   }
 
-  pre span:first-child {
-    margin-top: 0px;
+  /* ✅ MOBILE EMOJI HEADER SPACING (REDUCED TO 1 LINE) */
+  pre span:has(> span:only-child:first-child:matches(:contains("📚"), :contains("✏️"), :contains("⚪️"), :contains("✅"), :contains("💡"), :contains("🔍"))) {
+    margin-top: 6px !important;
+  }
+}
+
+/* ✅ DESKTOP EMOJI HEADER SPACING (REDUCED TO 1 LINE) */
+@media (min-width: 481px) {
+  pre span:has(> span:only-child:first-child:matches(:contains("📚"), :contains("✏️"), :contains("⚪️"), :contains("✅"), :contains("💡"), :contains("🔍"))) {
+    margin-top: 6px !important;
   }
 }
