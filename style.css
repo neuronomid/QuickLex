@@ -179,12 +179,11 @@ pre span {
   font-family: 'Vazirmatn', sans-serif;
   text-align: start;
   font-weight: 500;
-  margin-top: 0.5em; /* فاصله پیش‌فرض هر خط */
+  margin-top: 0.5em;
 }
 
-/* فاصله کم‌تر فقط برای خطوط ایموجی */
 pre span.emoji-line {
-  margin-top: 0.15em !important; /* خیلی کم و نزدیک */
+  margin-top: 0.04em !important;
 }
 
 pre span:first-child {
@@ -255,6 +254,6 @@ pre span:first-child {
   }
 
   pre span.emoji-line {
-    margin-top: 0.11em !important;
+    margin-top: 0.03em !important;
   }
 }
