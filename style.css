@@ -179,15 +179,18 @@ pre span {
   font-family: 'Vazirmatn', sans-serif;
   text-align: start;
   font-weight: 500;
-  margin-top: 0.5em;
-}
-
-pre span.emoji-line {
-  margin-top: 0.04em !important;
+  margin-top: 4px;
 }
 
 pre span:first-child {
   margin-top: 0;
+}
+
+/* ==================================
+   فاصله بسیار کم برای خطوط ایموجی
+   ================================== */
+pre span.emoji-header {
+  margin-top: 0.5px !important;
 }
 
 @media (max-width: 480px) {
@@ -253,7 +256,15 @@ pre span:first-child {
     display: none;
   }
 
-  pre span.emoji-line {
-    margin-top: 0.03em !important;
+  pre span {
+    margin-top: 2px;
+  }
+
+  pre span.emoji-header {
+    margin-top: 0.5px !important;
+  }
+
+  pre span:first-child {
+    margin-top: 0;
   }
 }
