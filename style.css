@@ -225,6 +225,15 @@ pre span {
     height: 60px;
   }
 
+  pre span {
+    display: block;
+    unicode-bidi: plaintext;
+    font-family: 'Vazirmatn', sans-serif;
+    text-align: start;
+    font-weight: 500;
+    margin-top: 6px; /* only 1 line spacing */
+  }
+
   .label {
     font-size: 16px;
     font-weight: 700;
