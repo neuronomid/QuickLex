@@ -243,4 +243,9 @@ pre span {
   ::-webkit-scrollbar {
     display: none;
   }
+
+  /* 🔧 تغییر جدید فقط برای فاصله بین خطوط شروع‌شده با ایموجی */
+  pre span:first-child {
+    margin-top: 1px !important;
+  }
 }
