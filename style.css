@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
 
 html {
-  -webkit-text-size-adjust: 100%; /* prevent zoom on iOS input */
+  -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -200,18 +200,34 @@ pre {
   }
 
   button {
-    padding: 10px;
-    font-size: 14px;
+    padding: 12px;
+    font-size: 17px;
+    font-weight: 600;
   }
 
   pre {
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.7;
     height: 20px;
   }
 
   .container.pro-mode pre {
     height: 60px;
+  }
+
+  .label {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .switch {
+    width: 48px;
+    height: 28px;
+  }
+
+  .slider:before {
+    height: 22px;
+    width: 22px;
   }
 
   ::-webkit-scrollbar {
