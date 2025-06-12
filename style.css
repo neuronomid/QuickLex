@@ -170,7 +170,7 @@ pre {
   white-space: pre-wrap;
   text-align: left;
   font-family: 'Vazirmatn', sans-serif;
-  font-weight: 500;
+  font-weight: 450;
 }
 
 pre span {
@@ -178,7 +178,12 @@ pre span {
   unicode-bidi: plaintext;
   font-family: 'Vazirmatn', sans-serif;
   text-align: start;
-  font-weight: 500;
+  font-weight: 450;
+}
+
+/* 👇 Added for desktop version to reduce emoji-started paragraph spacing */
+pre span:first-child {
+  margin-top: 1px;
 }
 
 @media (max-width: 480px) {
@@ -218,7 +223,7 @@ pre span {
     line-height: 1.7;
     height: 20px;
     font-family: 'Vazirmatn', sans-serif;
-    font-weight: 500;
+    font-weight: 450;
   }
 
   .container.pro-mode pre {
@@ -244,8 +249,8 @@ pre span {
     display: none;
   }
 
-  /* 🔧 تغییر جدید فقط برای فاصله بین خطوط شروع‌شده با ایموجی */
+  /* 👇 Mobile emoji fix (same as desktop) */
   pre span:first-child {
-    margin-top: 1px !important;
+    margin-top: 1px;
   }
 }
