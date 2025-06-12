@@ -33,7 +33,7 @@ async function doFetch() {
     let text = await res.text();
 
     // فاصله‌دهی قبل از خطوط ایموجی (برای خوانایی)
-    text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️))/g, '\n\n');
+    text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️|))/g, '\n');
 
     // تشخیص راست‌به‌چپ یا چپ‌به‌راست و اضافه کردن کلاس emoji-line
     const lines = text.split('\n');
