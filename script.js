@@ -27,28 +27,32 @@ async function doFetch() {
     });
     let text = await res.text();
 
-    // Auto spacing before emoji headers
+    // فاصله‌دهی قبل از خطوط ایموجی
     text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️|))/g, '\n\n');
 
-    // Auto direction detection per line
+    // تشخیص راست‌به‌چپ یا چپ‌به‌راست
     const lines = text.split('\n');
     responseArea.innerHTML = lines.map(line => {
       const isRTL = /[\u0600-\u06FF]/.test(line);
       return `<span dir="${isRTL ? 'rtl' : 'ltr'}">${line}</span>`;
     }).join('\n');
-    
+
     input.value = '';
-    input.focus();
+    input.blur(); // بستن کیبورد در موبایل
   } catch (err) {
     responseArea.textContent = 'Error: ' + err.message;
   }
 }
 
 doneBtn.onclick = doFetch;
+
 input.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     e.preventDefault();
     doFetch();
+    setTimeout(() => {
+      input.blur();
+    }, 200); // بستن کیبورد با Enter موبایل
   }
 });
 
