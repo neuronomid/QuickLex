@@ -161,18 +161,17 @@ pre {
   font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* 📱 Mobile Optimization */
 @media (max-width: 480px) {
   .container {
-    width: 95vw;
+    width: 88vw;
     height: 90vh;
     padding: 16px;
     transition: height 0.4s ease-in-out;
   }
 
   .container.pro-mode {
-    height: 108vh; /* فقط ارتفاع افزایش پیدا می‌کنه */
-    width: 95vw;   /* عرض ثابت می‌مونه */
+    height: 108vh;
+    width: 88vw; /* عرض ثابت بماند */
   }
 
   .logo {
@@ -196,5 +195,10 @@ pre {
   pre {
     font-size: 14px;
     line-height: 1.6;
+    height: 180px;
+  }
+
+  .container.pro-mode pre {
+    height: 320px;
   }
 }
