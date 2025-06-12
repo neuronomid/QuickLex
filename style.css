@@ -231,7 +231,7 @@ pre span {
     font-family: 'Vazirmatn', sans-serif;
     text-align: start;
     font-weight: 500;
-    margin-top: 6px; /* only 1 line spacing */
+    margin-top: 4px; /* adjusted to roughly 1 line spacing */
   }
 
   .label {
