@@ -179,11 +179,11 @@ pre span {
   font-family: 'Vazirmatn', sans-serif;
   text-align: start;
   font-weight: 500;
+  margin-top: 4px;
 }
 
-/* ✅ کاهش فاصله span هایی که با ایموجی شروع می‌شن */
-pre span:has(> :first-child:matches(span:has-text("📚"), span:has-text("✏️"), span:has-text("⚪️"), span:has-text("✅"))) {
-  margin-top: 2px;
+pre span:first-child {
+  margin-top: 0;
 }
 
 @media (max-width: 480px) {
@@ -249,8 +249,11 @@ pre span:has(> :first-child:matches(span:has-text("📚"), span:has-text("✏️
     display: none;
   }
 
-  /* ✅ کاهش فاصله ایموجی‌ها در موبایل */
-  pre span:has(> :first-child:matches(span:has-text("📚"), span:has-text("✏️"), span:has-text("⚪️"), span:has-text("✅"))) {
-    margin-top: 1px !important;
+  pre span {
+    margin-top: 2px;
+  }
+
+  pre span:first-child {
+    margin-top: 0;
   }
 }
