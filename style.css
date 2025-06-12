@@ -167,6 +167,12 @@ pre {
     width: 95vw;
     height: 90vh;
     padding: 16px;
+    transition: height 0.4s ease-in-out;
+  }
+
+  .container.pro-mode {
+    height: 108vh; /* فقط ارتفاع افزایش پیدا می‌کنه */
+    width: 95vw;   /* عرض ثابت می‌مونه */
   }
 
   .logo {
