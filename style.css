@@ -179,9 +179,10 @@ pre span {
   font-family: 'Vazirmatn', sans-serif;
   text-align: start;
   font-weight: 450;
+  margin-top: 4px;
 }
 
-/* ✅ MOBILE ONLY SETTINGS */
+/* ⬇️ نسخه موبایل */
 @media (max-width: 480px) {
   .container {
     width: 84vw;
@@ -218,7 +219,6 @@ pre span {
     font-size: 17px;
     line-height: 1.7;
     height: 20px;
-    font-family: 'Vazirmatn', sans-serif;
     font-weight: 450;
   }
 
@@ -241,19 +241,12 @@ pre span {
     width: 22px;
   }
 
+  /* فاصله بین خطوط emoji در موبایل کمتر بشه */
+  pre span:has(> span:only-child:first-child:matches(:first-letter:has(✏️,⚪️))) {
+    margin-top: 2px !important;
+  }
+
   ::-webkit-scrollbar {
     display: none;
-  }
-
-  /* ✅ MOBILE EMOJI HEADER SPACING (REDUCED TO 1 LINE) */
-  pre span:has(> span:only-child:first-child:matches(:contains("✏️"), :contains("⚪️"))) {
-    margin-top: 6px !important;
-  }
-}
-
-/* ✅ DESKTOP EMOJI HEADER SPACING (REDUCED TO 1 LINE) */
-@media (min-width: 481px) {
-  pre span:has(> span:only-child:first-child:matches(:contains("✏️"), :contains("⚪️"))) {
-    margin-top: 6px !important;
   }
 }
