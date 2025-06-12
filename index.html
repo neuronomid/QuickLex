@@ -2,43 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QuickLex</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Manifest -->
   <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="logo-symbol.png" type="image/png" />
 </head>
 <body>
   <div class="container" id="mainContainer">
     <div class="header">
       <div class="logo-name">
-        <img src="logo.png" alt="QuickLex Logo" class="logo" />
-        <span class="app-name">QuickLex</span>
+        <img src="logo-symbol.png" alt="Logo" class="logo" />
+        <div class="app-name">QuickLex</div>
       </div>
       <div class="toggle-wrapper">
-        <label class="label">Quick</label>
+        <span class="label">Quick</span>
         <label class="switch">
           <input type="checkbox" id="modeToggle" />
           <span class="slider"></span>
         </label>
-        <label class="label">Pro</label>
+        <span class="label">Pro</span>
       </div>
     </div>
-
-    <input id="wordInput" type="text" placeholder="Enter a word in English/Farsi..." autocomplete="off" />
-    
+    <input type="text" id="wordInput" placeholder="Enter a word in English/Farsi..." />
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
     </div>
-
     <pre id="responseArea"></pre>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
