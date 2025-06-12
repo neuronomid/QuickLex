@@ -36,19 +36,25 @@ async function doFetch() {
       const isRTL = /[\u0600-\u06FF]/.test(line);
       return `<span dir="${isRTL ? 'rtl' : 'ltr'}">${line}</span>`;
     }).join('\n');
-    
+
     input.value = '';
-    input.focus();
+    input.blur(); // ⬅️ This helps hide the keyboard
   } catch (err) {
     responseArea.textContent = 'Error: ' + err.message;
   }
 }
 
 doneBtn.onclick = doFetch;
+
 input.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     e.preventDefault();
     doFetch();
+
+    // ⬇️ این قسمت باعث میشه وقتی تو موبایل دکمه Enter زده میشه، کیبورد بسته بشه
+    setTimeout(() => {
+      input.blur();
+    }, 200);
   }
 });
 
