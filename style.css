@@ -172,6 +172,7 @@ pre {
     padding: 16px;
     transition: height 0.4s ease-in-out;
     background-color: white;
+    box-shadow: none;
   }
 
   .container.pro-mode {
@@ -205,5 +206,9 @@ pre {
 
   .container.pro-mode pre {
     height: 60px;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
