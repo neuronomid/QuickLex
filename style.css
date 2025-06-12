@@ -181,7 +181,6 @@ pre span {
   font-weight: 450;
 }
 
-/* 👇 Added for desktop version to reduce emoji-started paragraph spacing */
 pre span:first-child {
   margin-top: 1px;
 }
@@ -249,8 +248,7 @@ pre span:first-child {
     display: none;
   }
 
-  /* 👇 Mobile emoji fix (same as desktop) */
   pre span:first-child {
-    margin-top: 1px;
+    margin-top: 0px;
   }
 }
