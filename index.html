@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>QuickLex</title>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#0078d4" />
+
+  <!-- حذف theme-color برای جلوگیری از نوار آبی -->
+  <!-- <meta name="theme-color" content="#0078d4"> -->
+
+  <!-- Farsi font -->
   <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <div class="container" id="mainContainer">
@@ -18,17 +24,19 @@
         <span class="app-name">QuickLex</span>
       </div>
       <div class="toggle-wrapper">
-        <span class="label bold">Quick</span>
+        <label class="label">Quick</label>
         <label class="switch">
           <input type="checkbox" id="modeToggle" />
           <span class="slider"></span>
         </label>
-        <span class="label bold">Pro</span>
+        <label class="label">Pro</label>
       </div>
     </div>
 
-    <!-- Input & buttons -->
+    <!-- Input -->
     <input id="wordInput" type="text" placeholder="Enter a word in English/Farsi..." autocomplete="off" />
+
+    <!-- Buttons -->
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
@@ -39,65 +47,37 @@
   </div>
 
   <script>
-    const quickUrl = 'https://celebrated-beauty-production.up.railway.app/webhook/5131686e-9341-4559-a4db-e8a7b11c01c5';
-    const proUrl = 'https://celebrated-beauty-production.up.railway.app/webhook/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
+    const webhookQuick = 'https://celebrated-beauty-production.up.railway.app/webhook/5131686e-9341-4559-a4db-e8a7b11c01c5';
+    const webhookPro = 'https://celebrated-beauty-production.up.railway.app/webhook/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
 
     const input = document.getElementById('wordInput');
     const cancelBtn = document.getElementById('cancelBtn');
     const doneBtn = document.getElementById('doneBtn');
     const responseArea = document.getElementById('responseArea');
-    const modeToggle = document.getElementById('modeToggle');
+    const toggle = document.getElementById('modeToggle');
     const container = document.getElementById('mainContainer');
 
     cancelBtn.onclick = () => {
       input.value = '';
-      responseArea.innerHTML = '';
+      responseArea.textContent = '';
       input.focus();
     };
-
-    function detectDirection(text) {
-      const rtlPattern = /[\u0600-\u06FF]/;
-      return rtlPattern.test(text) ? 'rtl' : 'ltr';
-    }
-
-    function updateResponse(text) {
-      responseArea.innerHTML = '';
-      const lines = text.split('\n');
-      const sectionMarkers = ['📚', '🏠', '💼', '📖', '✏️', '⚪️', '☑️'];
-
-      lines.forEach(line => {
-        const trimmed = line.trim();
-        if (sectionMarkers.some(marker => trimmed.startsWith(marker))) {
-          for (let i = 0; i < 2; i++) {
-            const spacer = document.createElement('div');
-            spacer.style.height = '12px';
-            responseArea.appendChild(spacer);
-          }
-        }
-
-        const direction = detectDirection(trimmed);
-        const div = document.createElement('div');
-        div.textContent = trimmed;
-        div.style.direction = direction;
-        div.style.textAlign = direction === 'rtl' ? 'right' : 'left';
-        responseArea.appendChild(div);
-      });
-    }
 
     async function doFetch() {
       const word = input.value.trim();
       if (!word) return;
       responseArea.textContent = 'Loading...';
-
+      const url = toggle.checked ? webhookPro : webhookQuick;
       try {
-        const url = modeToggle.checked ? proUrl : quickUrl;
         const res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ word })
         });
-        const text = await res.text();
-        updateResponse(text);
+        let text = await res.text();
+        // فاصله‌گذاری بالا برای ایموجی‌ها
+        text = text.replace(/(^|\n)(?=.*(?:📚|🏃|💼|✏️|☑️|⚪️|📌|📎|📘|📖|🏠|✅|📄|📁|🧠|🔍|💡|📢|📤|📥|📈|📊|📅|🔬|📂|📑|📚|🔖|📝|📎|📉|📇))/g, '\n\n');
+        responseArea.textContent = text;
         input.value = '';
         input.focus();
       } catch (err) {
@@ -106,19 +86,18 @@
     }
 
     doneBtn.onclick = doFetch;
-
-    modeToggle.addEventListener('change', () => {
-      const isPro = modeToggle.checked;
-      container.classList.toggle('pro-mode', isPro);
-    });
-
-    input.addEventListener('keydown', e => {
+    input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
         doFetch();
       }
     });
 
+    toggle.addEventListener('change', () => {
+      container.classList.toggle('pro-mode', toggle.checked);
+    });
+
+    // Register service worker for PWA
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
