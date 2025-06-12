@@ -5,19 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>QuickLex</title>
 
-  <!-- حذف theme-color برای جلوگیری از نوار آبی -->
-  <!-- <meta name="theme-color" content="#0078d4"> -->
-
-  <!-- Farsi font -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- PWA manifest -->
+  <!-- Manifest -->
   <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <div class="container" id="mainContainer">
-    <!-- Header: logo + app name -->
     <div class="header">
       <div class="logo-name">
         <img src="logo.png" alt="QuickLex Logo" class="logo" />
@@ -33,74 +29,16 @@
       </div>
     </div>
 
-    <!-- Input -->
     <input id="wordInput" type="text" placeholder="Enter a word in English/Farsi..." autocomplete="off" />
-
-    <!-- Buttons -->
+    
     <div class="buttons">
       <button id="cancelBtn">Cancel</button>
       <button id="doneBtn">Done</button>
     </div>
 
-    <!-- Output area -->
     <pre id="responseArea"></pre>
   </div>
 
-  <script>
-    const webhookQuick = 'https://celebrated-beauty-production.up.railway.app/webhook/5131686e-9341-4559-a4db-e8a7b11c01c5';
-    const webhookPro = 'https://celebrated-beauty-production.up.railway.app/webhook/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
-
-    const input = document.getElementById('wordInput');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const doneBtn = document.getElementById('doneBtn');
-    const responseArea = document.getElementById('responseArea');
-    const toggle = document.getElementById('modeToggle');
-    const container = document.getElementById('mainContainer');
-
-    cancelBtn.onclick = () => {
-      input.value = '';
-      responseArea.textContent = '';
-      input.focus();
-    };
-
-    async function doFetch() {
-      const word = input.value.trim();
-      if (!word) return;
-      responseArea.textContent = 'Loading...';
-      const url = toggle.checked ? webhookPro : webhookQuick;
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ word })
-        });
-        let text = await res.text();
-        // فاصله‌گذاری بالا برای ایموجی‌ها
-        text = text.replace(/(^|\n)(?=.*(?:📚|🏃|💼|✏️|☑️|⚪️|📌|📎|📘|📖|🏠|✅|📄|📁|🧠|🔍|💡|📢|📤|📥|📈|📊|📅|🔬|📂|📑|📚|🔖|📝|📎|📉|📇))/g, '\n\n');
-        responseArea.textContent = text;
-        input.value = '';
-        input.focus();
-      } catch (err) {
-        responseArea.textContent = 'Error: ' + err.message;
-      }
-    }
-
-    doneBtn.onclick = doFetch;
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        doFetch();
-      }
-    });
-
-    toggle.addEventListener('change', () => {
-      container.classList.toggle('pro-mode', toggle.checked);
-    });
-
-    // Register service worker for PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
