@@ -28,7 +28,7 @@ async function doFetch() {
     let text = await res.text();
 
     // فقط یک \n قبل از هر ایموجی
-    text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️|📚|🍎|📌|📖|💡|✅|📝|🔑|🎯|💬|🧠|📄|📅|🔍|📈|📊|📂|📑|📎|🔖|🔬|📘|🏠|📢|🏃|💼|📥|📤|📁|📇|📉))/g, '\n');
+    text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️)/g, '\n');
 
     // هر خط را span کن، اگر با ایموجی شروع شد، کلاس بده
     const emojiPattern = /^[\u2190-\u2BFF\u2600-\u27BF\uFE0F\u1F000-\u1FFFF]/;
