@@ -170,7 +170,7 @@ pre {
   white-space: pre-wrap;
   text-align: left;
   font-family: 'Vazirmatn', sans-serif;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 pre span {
@@ -178,7 +178,7 @@ pre span {
   unicode-bidi: plaintext;
   font-family: 'Vazirmatn', sans-serif;
   text-align: start;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 @media (max-width: 480px) {
@@ -218,7 +218,7 @@ pre span {
     line-height: 1.7;
     height: 20px;
     font-family: 'Vazirmatn', sans-serif;
-    font-weight: bold;
+    font-weight: 500;
   }
 
   .container.pro-mode pre {
