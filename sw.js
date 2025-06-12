@@ -1,14 +1,11 @@
-self.addEventListener('install', event => {
-  event.waitUntil(self.skipWaiting());
+self.addEventListener('install', e => {
+  console.log('[ServiceWorker] Installed');
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
+self.addEventListener('activate', e => {
+  console.log('[ServiceWorker] Activated');
 });
 
-self.addEventListener('fetch', event => {
-  const reqUrl = new URL(event.request.url);
-  if (reqUrl.origin === self.location.origin) {
-    event.respondWith(fetch(event.request));
-  }
+self.addEventListener('fetch', e => {
+  // No caching for now
 });
