@@ -246,14 +246,14 @@ pre span {
   }
 
   /* ✅ MOBILE EMOJI HEADER SPACING (REDUCED TO 1 LINE) */
-  pre span:has(> span:only-child:first-child:matches(:contains("📚"), :contains("✏️"), :contains("⚪️"), :contains("✅"), :contains("💡"), :contains("🔍"))) {
+  pre span:has(> span:only-child:first-child:matches(:contains("✏️"), :contains("⚪️"))) {
     margin-top: 6px !important;
   }
 }
 
 /* ✅ DESKTOP EMOJI HEADER SPACING (REDUCED TO 1 LINE) */
 @media (min-width: 481px) {
-  pre span:has(> span:only-child:first-child:matches(:contains("📚"), :contains("✏️"), :contains("⚪️"), :contains("✅"), :contains("💡"), :contains("🔍"))) {
+  pre span:has(> span:only-child:first-child:matches(:contains("✏️"), :contains("⚪️"))) {
     margin-top: 6px !important;
   }
 }
