@@ -8,11 +8,6 @@ const responseArea = document.getElementById('responseArea');
 const toggle = document.getElementById('modeToggle');
 const container = document.getElementById('mainContainer');
 
-// تابع شناسایی خطوطی که با ایموجی شروع می‌شوند
-function isEmojiLine(line) {
-  return /^[\u231A-\u231B\u23E9-\u23EC\u23F0-\u23F4\u2600-\u27BF\u2B50-\u2B55\u2934-\u2935\u3297-\u3299\uD83C-\uDBFF\uDC00-\uDFFF]/.test(line.trim());
-}
-
 cancelBtn.onclick = () => {
   input.value = '';
   responseArea.innerHTML = '';
@@ -32,19 +27,20 @@ async function doFetch() {
     });
     let text = await res.text();
 
-    // فاصله‌دهی قبل از خطوط ایموجی (برای خوانایی)
-    text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️|))/g, '\n');
+    // فقط یک \n قبل از هر ایموجی
+    text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️|📚|🍎|📌|📖|💡|✅|📝|🔑|🎯|💬|🧠|📄|📅|🔍|📈|📊|📂|📑|📎|🔖|🔬|📘|🏠|📢|🏃|💼|📥|📤|📁|📇|📉))/g, '\n');
 
-    // تشخیص راست‌به‌چپ یا چپ‌به‌راست و اضافه کردن کلاس emoji-line
+    // هر خط را span کن، اگر با ایموجی شروع شد، کلاس بده
+    const emojiPattern = /^[\u2190-\u2BFF\u2600-\u27BF\uFE0F\u1F000-\u1FFFF]/;
     const lines = text.split('\n');
     responseArea.innerHTML = lines.map(line => {
       const isRTL = /[\u0600-\u06FF]/.test(line);
-      const emojiClass = isEmojiLine(line) ? 'emoji-line' : '';
-      return `<span dir="${isRTL ? 'rtl' : 'ltr'}" class="${emojiClass}">${line}</span>`;
+      const isEmoji = emojiPattern.test(line.trim());
+      return `<span dir="${isRTL ? 'rtl' : 'ltr'}"${isEmoji ? ' class="emoji-header"' : ''}>${line}</span>`;
     }).join('\n');
 
     input.value = '';
-    input.blur(); // بستن کیبورد در موبایل
+    input.blur();
   } catch (err) {
     responseArea.textContent = 'Error: ' + err.message;
   }
@@ -58,7 +54,7 @@ input.addEventListener('keydown', e => {
     doFetch();
     setTimeout(() => {
       input.blur();
-    }, 200); // بستن کیبورد با Enter موبایل
+    }, 200);
   }
 });
 
