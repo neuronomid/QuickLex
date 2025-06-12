@@ -190,7 +190,7 @@ pre span:first-child {
    فاصله بسیار کم برای خطوط ایموجی
    ================================== */
 pre span.emoji-header {
-  margin-top: 0.5px !important;
+  margin-top: 0 px !important;
 }
 
 @media (max-width: 480px) {
@@ -261,7 +261,7 @@ pre span.emoji-header {
   }
 
   pre span.emoji-header {
-    margin-top: 0.5px !important;
+    margin-top: 0 px !important;
   }
 
   pre span:first-child {
