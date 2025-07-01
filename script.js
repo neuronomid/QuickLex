@@ -1,5 +1,6 @@
 const QUICK_URL = 'https://celebrated-beauty-production.up.railway.app/webhook/5131686e-9341-4559-a4db-e8a7b11c01c5';
 const PRO_URL  = 'https://celebrated-beauty-production.up.railway.app/webhook/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
+
 const input = document.getElementById('wordInput');
 const cancelBtn = document.getElementById('cancelBtn');
 const doneBtn = document.getElementById('doneBtn');
@@ -17,21 +18,29 @@ async function doFetch() {
   const word = input.value.trim();
   if (!word) return;
   responseArea.textContent = 'Loading...';
-  const url = toggle.checked ? webhookPro : webhookQuick;
+
+  const url = toggle.checked ? PRO_URL : QUICK_URL;
+
   try {
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ word })
     });
+
+    if (!res.ok) {
+      throw new Error(`Server error: ${res.status}`);
+    }
+
     let text = await res.text();
 
-    // فقط یک \n قبل از هر ایموجی (پرنتز بسته شد)
+    // Add a line break before each emoji (✏️, ☑️, ⚪️) if needed
     text = text.replace(/(^|\n)(?=.*(?:✏️|☑️|⚪️))/g, '\n');
 
-    // هر خط را span کن، اگر با ایموجی دلخواه شروع شد، کلاس بده
+    // Split and wrap lines
     const emojiPattern = /^(✏️|☑️|⚪️)/;
     const lines = text.split('\n');
+
     responseArea.innerHTML = lines.map(line => {
       const isRTL = /[\u0600-\u06FF]/.test(line);
       const isEmoji = emojiPattern.test(line.trim());
