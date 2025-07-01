@@ -1,5 +1,5 @@
 const QUICK_URL = 'https://celebrated-beauty-production.up.railway.app/webhook/5131686e-9341-4559-a4db-e8a7b11c01c5';
- const PRO_URL   = 'https://celebrated-beauty-production.up.railway.app/webhook/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
+const PRO_URL  = 'https://celebrated-beauty-production.up.railway.app/webhook/ebce61bb-fb95-468c-967d-f5c5bb6b44f1';
 const input = document.getElementById('wordInput');
 const cancelBtn = document.getElementById('cancelBtn');
 const doneBtn = document.getElementById('doneBtn');
